@@ -1,0 +1,93 @@
+{% extends 'photography/base.html '%}
+
+{% block content %}
+
+<!-- Hero Section 
+<div class="vh-100 d-flex align-items-center justify-content-center text-white text-center" style="background-image: url('/images/contact.jpg'); background-size: cover; background-position: center;">
+    <div class="p-5 rounded bg-transparent">
+      <h1 class="display-3 fw-bold text-white bg-transparent bg-opacity-75">Let's Connect</h1>
+    </div>
+  </div> -->
+  
+  <!-- Contact Details Section -->
+  <div class="py-5 bg-light text-center">
+    <div class="container">
+      <div class="bg-white p-5 rounded shadow mx-auto" style="max-width: 700px;">
+        <h2 class="h3 fw-semibold text-dark mb-4">Contact Details</h2>
+        <p class="fs-5 text-muted">📍 Location: Chennai, India</p>
+        <p class="fs-5 text-muted">📞 Phone: +91 9876543210</p>
+        <p class="fs-5 text-muted">📧 Email: info@tsgphotography.com</p>
+        <div class="mt-4 d-flex justify-content-center gap-4">
+          <a href="#" class="text-primary fs-3"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="text-danger fs-3"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-info fs-3"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Contact Form Section -->
+  <div class="py-5 bg-white">
+    <div class="container">
+      <div class="bg-light p-5 rounded shadow mx-auto" style="max-width: 600px;">
+        <h2 class="h3 fw-semibold text-center text-dark mb-4">Book Your Free Consultation</h2>
+  
+        <form id="contactForm">
+          {% csrf_token %} 
+          <!-- Name -->
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" name="name" required class="form-control">
+          </div>
+  
+          <!-- Phone -->
+          <div class="mb-3">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" name="phone" required class="form-control">
+          </div>
+  
+          <!-- Requirements -->
+          <div class="mb-3">
+            <label class="form-label">Requirement</label>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="requirement" value="Birthday" id="birthday">
+              <label class="form-check-label" for="birthday">Birthday</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="requirement" value="Wedding/Reception" id="wedding">
+              <label class="form-check-label" for="wedding">Wedding / Reception</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="requirement" value="Upanayanam" id="upanayanam">
+              <label class="form-check-label" for="upanayanam">Upanayanam</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="requirement" value="Others" id="others">
+              <label class="form-check-label" for="others">Others</label>
+            </div>
+          </div>
+  
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary btn-lg w-100">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", async function (event) {
+      event.preventDefault();
+  
+      const formData = new FormData(this);
+      const response = await fetch("/send-consultation", {
+        method: "POST",
+        body: JSON.stringify(Object.fromEntries(formData)),
+        headers: { "Content-Type": "application/json" },
+      });
+  
+      const result = await response.json();
+      alert(result.message);
+    });
+  </script>
+
+{% endblock %}

@@ -1,0 +1,358 @@
+{% extends 'photography/base.html '%} {% block content %}
+
+<!-- Hero Section with Background Slideshow -->
+<section
+  class="position-relative bg-dark text-white hero-slideshow"
+  style="
+    height: 70vh;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 1s ease-in-out;
+  "
+>
+  <div
+    class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex justify-content-center align-items-center"
+  >
+    <button
+      onclick="openModal()"
+      class="btn btn-lg text-white fw-bold"
+      style="
+        background: linear-gradient(to right, #3b82f6, #9333ea);
+        border-radius: 999px;
+      "
+    >
+      Book Free Consultation
+    </button>
+  </div>
+  <!-- Slideshow Controls -->
+  <div class="position-absolute top-50 start-0 translate-middle-y px-3">
+    <button onclick="prevSlide()" class="btn btn-light">&larr;</button>
+  </div>
+  <div class="position-absolute top-50 end-0 translate-middle-y px-3">
+    <button onclick="nextSlide()" class="btn btn-light">&rarr;</button>
+  </div>
+
+  <!-- Dots -->
+  <div class="position-absolute bottom-0 start-50 translate-middle-x pb-2">
+    <div id="slideshow-dots" class="d-flex justify-content-center mt-3"></div>
+  </div>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="consultationModal"
+    tabindex="-1"
+    aria-labelledby="consultationModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-white text-dark">
+        <!-- Added bg-white and text-dark -->
+        <div class="modal-header">
+          <h5 class="modal-title" id="consultationModalLabel">
+            Book Free Consultation
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form id="consultationForm">
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input type="text" class="form-control" name="name" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Phone Number</label>
+              <input type="tel" class="form-control" name="phone" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Requirement</label>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Birthday"
+                  name="requirement"
+                />
+                <label class="form-check-label">Birthday</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Wedding/Reception"
+                  name="requirement"
+                />
+                <label class="form-check-label">Wedding / Reception</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Upanayanam"
+                  name="requirement"
+                />
+                <label class="form-check-label">Upanayanam</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="Others"
+                  name="requirement"
+                />
+                <label class="form-check-label">Others</label>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About us -->
+<section id="about" class="py-5 bg-light">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Image -->
+      <div class="col-md-6 mb-4 mb-md-0">
+        <img
+          src="/media/images/aboutus.webp"
+          alt="About Us"
+          class="img-fluid rounded shadow"
+        />
+      </div>
+
+      <!-- Text -->
+      <div class="col-md-6">
+        <h2 class="mb-3">About Us</h2>
+        <p class="lead">
+          We are passionate storytellers who turn special moments into timeless
+          memories. From candid wedding shots to artistic portraits, every frame
+          we click carries emotion, elegance, and authenticity.
+        </p>
+        <p>
+          With a blend of creativity and technical expertise, we bring your
+          story to life through our lens. Let us capture your cherished moments
+          and craft visuals that speak louder than words.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Our Expertise Section -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-bold">OUR EXPERTISE</h2>
+    <div class="row g-4">
+      <!-- For loop - Services -->
+      {% if services %} {% for service in services %}
+      <div class="col-md-4">
+        <div class="card h-100 shadow">
+          <div class="ratio ratio-4x3">
+            <img
+              src="{{ service.image.url }}"
+              class="card-img-top img-fluid-custom"
+              alt="{{ service.alt }}"
+              loading="lazy"
+            />
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ service.title }}</h5>
+            <p class="card-text">{{ service.description }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %} {% else %}
+      <p>No Services Available</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- our process -->
+<section
+  id="process"
+  class="py-5 position-relative"
+  style="
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: #fff;
+  "
+>
+  <div class="container text-center">
+    <h2 class="display-5 fw-bold mb-4">Our Signature Process</h2>
+    <p class="mb-5 text-light">
+      Where creativity meets storytelling — in three beautiful steps
+    </p>
+
+    <div class="row g-4 justify-content-center">
+      <!-- Step 1 -->
+      <div class="col-md-4">
+        <div class="glass-card p-4 rounded-4 shadow-lg h-100 position-relative">
+          <div
+            class="step-number bg-gradient bg-warning text-dark fw-bold position-absolute top-0 start-50 translate-middle rounded-pill px-4 py-2"
+          >
+            01
+          </div>
+          <div class="mt-5 pt-3">
+            <i class="bi bi-eye-fill fs-1 text-warning mb-3"></i>
+            <h5 class="fw-bold">Creative Discovery</h5>
+            <p class="text-light small">
+              We immerse ourselves in your story — from your dreams to the
+              smallest details — to set the visual tone.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="col-md-4">
+        <div class="glass-card p-4 rounded-4 shadow-lg h-100 position-relative">
+          <div
+            class="step-number bg-gradient bg-info text-dark fw-bold position-absolute top-0 start-50 translate-middle rounded-pill px-4 py-2"
+          >
+            02
+          </div>
+          <div class="mt-5 pt-3">
+            <i class="bi bi-magic fs-1 text-info mb-3"></i>
+            <h5 class="fw-bold">Signature Shoot</h5>
+            <p class="text-light small">
+              We choreograph natural moments with cinematic flair — combining
+              spontaneity, light, and emotion in every frame.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="col-md-4">
+        <div class="glass-card p-4 rounded-4 shadow-lg h-100 position-relative">
+          <div
+            class="step-number bg-gradient bg-success text-dark fw-bold position-absolute top-0 start-50 translate-middle rounded-pill px-4 py-2"
+          >
+            03
+          </div>
+          <div class="mt-5 pt-3">
+            <i class="bi bi-gem fs-1 text-success mb-3"></i>
+            <h5 class="fw-bold">Polished Delivery</h5>
+            <p class="text-light small">
+              Each photo is meticulously refined and presented with love — in
+              digital galleries or heirloom albums.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Captured Vibes -->
+
+<section class="py-5 bg-dark-gradient">
+    <div class="container text-center mb-5">
+      <h2 class="display-4 fw-bold gradient-text mb-3">📷 Captured Vibes</h2>
+      <p class="lead text-muted fst-italic">
+        Glide through iconic frames — where the spotlight is always center stage.
+      </p>
+    </div>
+  
+    <div class="gallery-container">
+      <div class="gallery-track">
+        <div class="gallery-item"><img src="/media/images/image3.jpg" alt="Urban Style" /></div>
+        <div class="gallery-item"><img src="/media/images/even.webp" alt="Event Magic" /></div>
+        <div class="gallery-item"><img src="/media/images/web.jpg" alt="Creative Web" /></div>
+        <div class="gallery-item"><img src="/media/images/port.jpg" alt="Portrait Vibes" /></div>
+        <div class="gallery-item"><img src="/media/images/image3.jpg" alt="Urban Style" /></div>
+        <div class="gallery-item"><img src="/media/images/even.webp" alt="Event Magic" /></div>
+        <div class="gallery-item"><img src="/media/images/web.jpg" alt="Creative Web" /></div>
+        <div class="gallery-item"><img src="/media/images/port.jpg" alt="Portrait Vibes" /></div>
+      </div>
+    </div>
+  </section>
+    
+<!-- YouTube Section -->
+<section class="py-5 bg-dark text-white">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-4">Watch Us on YouTube</h2>
+    <div class="ratio ratio-16x9 mb-4">
+      <iframe
+        src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+        title="YouTube video"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <a
+      href="https://www.youtube.com/@tsgphotography"
+      target="_blank"
+      class="btn btn-outline-light"
+    >
+      Visit Our Channel
+    </a>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-5">What Our Clients Say</h2>
+    <div
+      id="testimonialCarousel"
+      class="carousel slide"
+      data-bs-ride="carousel"
+    >
+      <div class="carousel-inner text-center">
+        <div class="carousel-item active">
+          <blockquote class="blockquote">
+            <p class="mb-4">
+              "TSG Photography made our wedding unforgettable. Every photo tells
+              a story!"
+            </p>
+            <footer class="blockquote-footer">Ravi & Priya</footer>
+          </blockquote>
+        </div>
+        <div class="carousel-item">
+          <blockquote class="blockquote">
+            <p class="mb-4">
+              "The team was professional, friendly, and captured all the
+              beautiful moments!"
+            </p>
+            <footer class="blockquote-footer">Anjali M.</footer>
+          </blockquote>
+        </div>
+        <div class="carousel-item">
+          <blockquote class="blockquote">
+            <p class="mb-4">
+              "Absolutely thrilled with the portraits. Highly recommended!"
+            </p>
+            <footer class="blockquote-footer">Karthik S.</footer>
+          </blockquote>
+        </div>
+      </div>
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#testimonialCarousel"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#testimonialCarousel"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
